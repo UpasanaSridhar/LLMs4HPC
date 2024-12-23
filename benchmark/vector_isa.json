@@ -1,0 +1,21 @@
+{ "load":"_mm256_load_ps",
+"store": "_mm256_store_ps",
+"broadcast": "_mm256_broadcast_ss",
+"Binary Vector Operations": {
+  "add": "_mm256_add_ps",
+  "sub": "_mm256_sub_ps",
+  "mul" :"_mm256_mul_ps",
+  "min": "_mm256_min_ps",
+  "max": "_mm256_max_ps",
+  "and": "_mm256_and_ps",
+  "cmp": "_mm256_cmp_ps"
+},
+"Ternary Vector Operations": {
+  "fused-multipy-add" :"_mm256_fmadd_ps",
+  "fused multiply-add/sub": "_mm256_fmaddsub_ps"
+},
+"decl": "__m256",
+"max registers": 16,
+"Register width": 256,
+"Elements per vector register": 8 
+}

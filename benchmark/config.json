@@ -1,0 +1,19 @@
+{
+  "models": {
+    "deepseek-coder-v2": {
+      "model_name": "deepseek-ai/DeepSeek-Coder-V2-Instruct",
+      "config": {
+        "params":{
+            
+            "temperature:": 0.2,
+            "top-p": 0.9
+      }
+    }
+}
+}
+,
+"prompts": {
+    "dgemm_kernel_avx2": "../tasks/MatrixOperations/dgemm_avx2.md"
+}
+}
+

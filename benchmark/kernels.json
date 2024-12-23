@@ -1,0 +1,93 @@
+{
+    "no_input": {
+        "kernel_identifier": "input params",
+        "DEF":  {
+            "params":"(W_ob, C_ob)",
+            "op": "decl"
+        }
+    },
+
+    "single_channel reductions": {
+        "unary": {
+            "LOAD":{
+                "params":"(O, W_ob, C_ob)",
+                "op": "load"
+            },
+            "STORE": {
+                "params":"(O, W_ob, C_ob)",
+                "op": "store"
+            },
+            "LOAD_strided": {
+                "params":"(O, step, W_ob, C_ob)",
+                "op": "load"
+            },
+            "LOAD_upsample": {
+                "params":"(O, stride, _C_ib, W_ob, C_ob)",
+                "op": "load"
+            },
+            "STORE_strided": {
+                "params":"(step, O, W_ob, C_ob)",
+                "op": "store"
+            },
+            "MAX": {
+                "params":"(step, a, W_ob, C_ob)",
+                "op": "max"
+            },
+            "ACCUM": {
+                "params":"(step, a, W_ob, C_ob)",
+                "op": "add"
+            },
+            "ACCUM_upsample": {
+                "params": "(I, stride, _C_ib, W_ob, C_ob)",
+                "op": "add"
+            },
+            "broadcast":{ 
+                "ZERO": {
+                    "params":"(W_ob, C_ob)",
+                    "op": "zero"
+                },
+                "FUSED_RELU": {
+                    "params":"(W_ob, C_ob)",
+                    "op": "max"
+                },
+                "DIV": {
+                    "params":"(norm, W_ob, C_ob)",
+                    "op": "mul"
+                }
+            }
+    
+        },
+        "binary":{
+            "DW":{
+                "params":"(step, a, b, W_ob, C_ob)",
+                "op": "fma"
+            },
+            "broadcast":{
+            "COND_SCALE":{
+                "params":"(step, a, b, W_ob, C_ob)",
+                "op": "complex"
+            },
+            "FUSED_COND_SCALE": {
+                "params":"(b, W_ob, C_ob)",
+                "op": "complex"
+            }
+        }
+    }
+
+    },
+    "channel reductions": {
+        "no_input":{
+            "REDUCE_CHANNEL_END": {
+                "params":"(W_ob, C_ob)",
+                "op": "add"
+            }
+        },
+        "binary":{
+            "CONV":{
+                "params":"(step, a, b, W_ob, C_ob)",
+                "op": "fma"
+            }
+        }
+
+    }
+}
