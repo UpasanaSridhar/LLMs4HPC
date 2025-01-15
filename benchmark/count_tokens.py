@@ -1,4 +1,5 @@
 from transformers import AutoTokenizer
+import sys
 
 def count_tokens(model_name: str, prompt: str) -> int:
     """
@@ -165,7 +166,10 @@ for(int i=0; i< M; i++)
 }
 ```
 """
-
+    prompt_file = sys.argv[1]
+    # Open the prompt file and read the prompt
+    with open(prompt_file, "r") as file:
+        prompt = file.read()
 
     print("Token counts for different models:")
     # for model_name in model_names:
@@ -177,20 +181,7 @@ for(int i=0; i< M; i++)
     except Exception as e:
         print(f"Error with model {model_name}: {e}")
 
-    # Generate output for this prompt,  count token in the output
-    # Use a pipeline as a high-level helper
-    from transformers import pipeline
 
-    messages = [
-        {"role": "user", "content": prompt},
-    ]
-    pipe = pipeline("text-generation", model="codellama/CodeLlama-7b-Instruct-hf")
-    pipe(messages)
-
-    # Count the tokens in the generated output
-    output = messages[0]["generated_text"]
-    num_tokens_output = count_tokens(model_name, output)
-    print(f"Output tokens: {num_tokens_output}")
 
 
 

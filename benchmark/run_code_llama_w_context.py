@@ -686,8 +686,8 @@ def run_code_llama(prompt: str):
 def main():
     """Main function to demonstrate combining context and prompt and running Code LLaMA."""
     # Iterate over the benchmark prompts
-    task = benchmark["tasks"]["vectorization"]
-    print(f"\nBenchmark Task: vectorization\n")
+    task = benchmark["tasks"]["vectorISA translation"]
+    print(f"\nBenchmark Task: vectorISA translation\n")
     print(task["context"])
     for i in range(5):
         print(f"\nPrompt {i}:\n")

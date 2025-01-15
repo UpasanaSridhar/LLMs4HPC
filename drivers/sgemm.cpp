@@ -7,9 +7,21 @@
 
 typedef float BufferT;
 
+#ifdef AVX2
 # define M 6
-# define N 16
+# define N 8
 # define K 256
+# define CALL sgemm_avx2
+#endif
+
+
+#ifdef AVX512
+# define M 8
+# define N 64
+# define K 512
+# define CALL sgemm_avx512
+#endif
+
 
 
 int main() {
@@ -33,7 +45,7 @@ int main() {
         }
     }
     //Call the kernel
-    sgemm_avx2(A, B, C);
+    CALL(A, B, C);
 
     // Compare the results
     bool check = true;
@@ -51,7 +63,7 @@ int main() {
 
         // Run the matrix multiplication 100 times
         for (int iter = 0; iter < 1000; ++iter) {
-            sgemm_avx2(A, B, C);
+            CALL(A, B, C);
         }
 
         auto end = std::chrono::high_resolution_clock::now();

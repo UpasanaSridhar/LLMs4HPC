@@ -1,0 +1,24 @@
+{
+"loads":" _mm256_load_pd",
+"stores":" _mm256_store_pd",
+"broadcast":" _mm256_broadcast_sd",
+"Binary Vector Operations": {
+  "add": "_mm256_add_pd",
+  "sub": "_mm256_sub_pd",
+  "mul": "_mm256_mul_pd",
+  "min": "_mm256_min_pd",
+  "max": "_mm256_max_pd",
+  "and": "_mm256_and_pd",
+  "<": "_mm256_cmp_pd",
+  ">": "_mm256_cmp_pd"
+},
+"Ternary Vector Operations": {
+  "fused multipy-add": "_mm256_fmadd_pd",
+  "fused multiply sub": "_mm256_fmsub_pd",
+  "fused multiply-add/sub": "_mm256_fmaddsub_pd"
+},
+"Vector Data Type": "__m256d",
+"Register width": 256,
+"Elements per vector register": "4"
+}
+
