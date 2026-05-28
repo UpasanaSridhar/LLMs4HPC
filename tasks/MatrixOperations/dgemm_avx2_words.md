@@ -1,18 +1,19 @@
 
 # Task
-You are an exprt in high-performance computing, C and assembly. Please write a high-performance C function that implements a 6x8 kernel for multiplying a 6x256 matrix \( A \) and a 256x8 matrix \( B \), resulting in a 6x8 output matrix \( C \). 
+You are an exprt in high-performance computing, C and assembly. Please write a high-performance C function that implements a 6x8 kernel for multiplying a 6x256 matrix \( A[M][K] \) and a 256x8 matrix \( B[K][N] \), resulting in a 6x8 output matrix \( C[M][N] \). 
 
 
 # Context
 Architecture: AVX2 vector extensions. 
 Data-type: double 
-Function-signature: `dgemm_avx2(double const *A, double const *B, double *C)`.  
+Function-signature: `dgemm_avx2(double const *A, double const *B, double *C)`.
+Loop iterators are i, j, k for `M`, `N` and `K` respectively.
 
 # Kernel Writing Steps
 
 Follow these steps in order:
 1. Loop Order: 
-   - Make the `K`-loop the outermost loop. Then have the loop over M, then N as the innermost loop.
+   - Make the `K`-loop the outermost loop. Then have the loop over `M`, then `N` as the innermost loop.
 
 2. Data Layout and Indexing:
    - For \( A \) -- column-major. 
@@ -31,10 +32,10 @@ Follow these steps in order:
    - Computation: The original operation is a multiply-accumulate. Use a *fused multiply-add* if available.
 
 4. Manual Unrolling:
-   - For the `i`-loop, manually write out all operations for each of the 6 rows in the output matrix.
-   - For the `j`-loop, manually handle the two chunks of 4 columns each in the output matrix.
+   - For the `M`-loop, manually write out all operations for each of the 6 rows in the output matrix.
+   - For the `N`-loop, manually handle the two chunks of 4 columns each in the output matrix.
 5. Reuse in Register: 
-   - Store the \( C \) registers to the output matrix only after completing the \( k \)-loop. Store the results directly into the appropriate positions in \( C \) (6 rows x 8 columns).
+   - Store the \( C \) registers to the output matrix only after completing the `K`-loop. Store the results directly into the appropriate positions in \( C \) (6 rows x 8 columns).
    - Loads of A and B must happen once per iteration of the k-loop.
 6. Register Usage: There are 16 registers in the AVX2 ISA.
    The unrolled code should use no more than 16 register type variables.
